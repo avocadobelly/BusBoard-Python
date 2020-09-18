@@ -23,7 +23,10 @@ class BusStop:
 
         all_bus_departures.sort(key=lambda bus: bus["aimed_departure_time"])
 
-        return all_bus_departures
+        next_buses = []
+        for bus in all_bus_departures:
+           next_buses.append([bus['line'], bus['aimed_departure_time']])
+        return next_buses
 
 
 # Convert postcode to long and lat
