@@ -2,7 +2,7 @@ import requests
 from api_keys import app_id
 from api_keys import app_key
 
-postcode = 'BA12BL'
+postcode = input('Input your current postcode:\n')
 
 #CLASSES
 class BusStop:
@@ -55,4 +55,10 @@ BusStop_1 = BusStop(code_1)
 BusStop_2 = BusStop(code_2)
 
 # Print useful data
-print(BusStop_1.buses)
+
+for bus in BusStop_1.buses:
+    print('Bus number:' + bus[0] + '    Expected Arrival: ' + bus[1])
+print('\n')
+
+for bus in BusStop_2.buses:
+    print('Bus number:' + bus[0] + '    Expected Arrival: ' + bus[1])
