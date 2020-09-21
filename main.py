@@ -8,8 +8,9 @@ postcode = "BA12AF"
 #CLASSES
 class BusStop:
 
-    def __init__(self, code):
+    def __init__(self, code, name):
         self.code = code
+        self.name = name
         self.buses = self.GetBuses()
 
     def GetBuses(self):
@@ -45,18 +46,26 @@ def FindNearestBusStops(long, lat):
     r = requests.get('https://transportapi.com/v3/uk/places.json?lat=' + str(lat) + '&lon=' + str(
         long) + '&type=bus_stop', params={'app_id': app_id,
                                           'app_key': app_key})
-    json_r = r.json()
+    busStopsInfo = r.json()
 
-    return json_r
+    return busStopsInfo
 
-#nearest_busstops = FindNearestBusStops(longitude, latitude)
 
-# code_1 = nearest_busstops['member'][0]['atcocode']
+def getBusStopCodeAndName(busStopsInfo):
+    codes = []
+    names = []
+    for i in range(0,len(busStopsInfo['member'])):
+        codes.append(busStopsInfo['member'][i]['atcocode'])
+        names.append(busStopsInfo['member'][i]['name'])
+        i += 1
+        return codes, names
+
 # code_2 = nearest_busstops['member'][1]['atcocode']
-
 # Create 2 busstop classes
 # BusStop_1 = BusStop(code_1)
 # BusStop_2 = BusStop(code_2)
+
+
 
 # Print useful data
 
