@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from main import BusStop, FindNearestBusStops, PostCodetoLatLong
 
 app = Flask(__name__)
 
@@ -9,6 +10,10 @@ def index():
 @app.route("/busInfo")
 def busInfo():
     postcode = request.args.get('postcode')
-    return render_template('info.html', postcode=postcode)
+    long, lat = PostCodetoLatLong(postcode)
+    busStops = FindNearestBusStops(long, lat)
+    code = busStops['member'][0]['atcocode']
+    busStop = BusStop(code)
+    return render_template('info.html', postcode=postcode, busStop=[busStop])
 
 if __name__ == "__main__": app.run()

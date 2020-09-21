@@ -5,6 +5,15 @@
     <h2>Bus Information</h2>
     <div>
         <p>You entered postcode <span>{{ postcode }}</span></p>
+        <!--Bus Board with Bus number and bus times-->
+        {% for buses in busStop %}
+            <div>{{busStop.code}}</div>
+            {% for bus in buses.buses %}
+                <div> {{bus}} </div>
+            {% endfor %}
+        {% endfor %}
+
+
     </div>
 </div>
 {% endblock %}

@@ -2,7 +2,8 @@ import requests
 from api_keys import app_id
 from api_keys import app_key
 
-postcode = input('Input your current postcode:\n')
+#postcode = input('Input your current postcode:\n')
+postcode = "BA12AF"
 
 #CLASSES
 class BusStop:
@@ -30,11 +31,14 @@ class BusStop:
 
 
 # Convert postcode to long and lat
-postcode_info = requests.get('https://api.postcodes.io/postcodes/' + postcode)
-json_postcode_info = postcode_info.json()
+def PostCodetoLatLong(postcode):
+    postcode_info = requests.get('https://api.postcodes.io/postcodes/' + postcode)
+    json_postcode_info = postcode_info.json()
 
-longitude = json_postcode_info['result']['longitude']
-latitude = json_postcode_info['result']['latitude']
+    longitude = json_postcode_info['result']['longitude']
+    latitude = json_postcode_info['result']['latitude']
+
+    return longitude, latitude
 
 # Find two nearest busstops
 def FindNearestBusStops(long, lat):
@@ -45,20 +49,20 @@ def FindNearestBusStops(long, lat):
 
     return json_r
 
-nearest_busstops = FindNearestBusStops(longitude, latitude)
+#nearest_busstops = FindNearestBusStops(longitude, latitude)
 
-code_1 = nearest_busstops['member'][0]['atcocode']
-code_2 = nearest_busstops['member'][1]['atcocode']
+# code_1 = nearest_busstops['member'][0]['atcocode']
+# code_2 = nearest_busstops['member'][1]['atcocode']
 
 # Create 2 busstop classes
-BusStop_1 = BusStop(code_1)
-BusStop_2 = BusStop(code_2)
+# BusStop_1 = BusStop(code_1)
+# BusStop_2 = BusStop(code_2)
 
 # Print useful data
 
-for bus in BusStop_1.buses:
-    print('Bus number:' + bus[0] + '    Expected Arrival: ' + bus[1])
-print('\n')
-
-for bus in BusStop_2.buses:
-    print('Bus number:' + bus[0] + '    Expected Arrival: ' + bus[1])
+# for bus in BusStop_1.buses:
+#     print('Bus number:' + bus[0] + '    Expected Arrival: ' + bus[1])
+# print('\n')
+#
+# for bus in BusStop_2.buses:
+#     print('Bus number:' + bus[0] + '    Expected Arrival: ' + bus[1])
