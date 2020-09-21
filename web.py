@@ -11,9 +11,12 @@ def index():
 def busInfo():
     postcode = request.args.get('postcode')
     long, lat = PostCodetoLatLong(postcode)
-    busStops = FindNearestBusStops(long, lat)
-    code = busStops['member'][0]['atcocode']
-    busStop = BusStop(code)
-    return render_template('info.html', postcode=postcode, busStop=busStop)
+    busStopsInfo = FindNearestBusStops(long, lat)
+    code = busStopsInfo['member'][0]['atcocode']
+    name = busStopsInfo['member'][0]['name']
+    busStops = []
+    busStops.append(BusStop(code, name))
+
+    return render_template('info.html', postcode=postcode, busStops=busStops)
 
 if __name__ == "__main__": app.run()
