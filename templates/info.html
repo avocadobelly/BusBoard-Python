@@ -5,11 +5,20 @@
     <h2>Bus Information</h2>
     <div>
         <p>You entered postcode <span>{{ postcode }}</span></p>
+        <p>The nearest bus stop is: {{ busStop.name}}</p>
         <!--Bus Board with Bus number and bus times-->
-            <div>{{busStop.code}}</div>
-            {% for bus in busStop.buses %}
-                <div> {{bus}} </div>
-            {% endfor %}
+            <table style="padding:5px, 15px ; border: 1px solid black">
+                <tr>
+                    <td><b>Line:</b></td>
+                    <td><b>Time:</b></td>
+                </tr>
+                {% for bus in busStop.buses %}
+                    <tr>
+                        <td>{{bus[0]}}</td>
+                        <td>{{bus[1]}}</td>
+                     </tr>
+                {% endfor %}
+            </table>
     </div>
 </div>
 {% endblock %}
