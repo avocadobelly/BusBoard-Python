@@ -14,6 +14,6 @@ def busInfo():
     busStops = FindNearestBusStops(long, lat)
     code = busStops['member'][0]['atcocode']
     busStop = BusStop(code)
-    return render_template('info.html', postcode=postcode, busStop=[busStop])
+    return render_template('info.html', postcode=postcode, busStop=busStop)
 
 if __name__ == "__main__": app.run()
