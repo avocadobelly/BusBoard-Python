@@ -3,7 +3,6 @@ from api_keys import app_id
 from api_keys import app_key
 
 #postcode = input('Input your current postcode:\n')
-postcode = "BA12AF"
 
 #CLASSES
 class BusStop:
@@ -50,28 +49,10 @@ def FindNearestBusStops(long, lat):
 
     return busStopsInfo
 
-
+# Returns the bus stop name and code for the nearest 2 busstops as a dictionary
 def getBusStopCodeAndName(busStopsInfo):
-    codes = []
-    names = []
-    for i in range(0,len(busStopsInfo['member'])):
-        codes.append(busStopsInfo['member'][i]['atcocode'])
-        names.append(busStopsInfo['member'][i]['name'])
+    info = {}
+    for i in range(0,min(2,len(busStopsInfo['member']))):
+        info[busStopsInfo['member'][i]['name']] = busStopsInfo['member'][i]['atcocode']
         i += 1
-        return codes, names
-
-# code_2 = nearest_busstops['member'][1]['atcocode']
-# Create 2 busstop classes
-# BusStop_1 = BusStop(code_1)
-# BusStop_2 = BusStop(code_2)
-
-
-
-# Print useful data
-
-# for bus in BusStop_1.buses:
-#     print('Bus number:' + bus[0] + '    Expected Arrival: ' + bus[1])
-# print('\n')
-#
-# for bus in BusStop_2.buses:
-#     print('Bus number:' + bus[0] + '    Expected Arrival: ' + bus[1])
+    return info

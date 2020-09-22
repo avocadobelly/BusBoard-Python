@@ -12,9 +12,10 @@ def busInfo():
     postcode = request.args.get('postcode')
     long, lat = PostCodetoLatLong(postcode)
     busStopsInfo = FindNearestBusStops(long, lat)
-    codes, names = getBusStopCodeAndName(busStopsInfo)
+    info = getBusStopCodeAndName(busStopsInfo)
     busStops = []
-    busStops.append(BusStop(codes[0], names[0]))
+    for name, code in info.items():
+        busStops.append(BusStop(code, name))
 
     return render_template('info.html', postcode=postcode, busStops=busStops)
 
